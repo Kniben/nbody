@@ -78,7 +78,7 @@ impl App {
                          -> [f64; 8] {
                     let dx = u[2] - u[0];
                     let dy = u[3] - u[1];
-                    let eps = 0.0000001 * dt;
+                    let eps = 0.00001 * dt;
                     let sqdist = dx * dx + dy * dy;
                     let r2 = sqdist.max(eps);
                     let r = r2.sqrt();
@@ -210,7 +210,7 @@ fn main() {
         .build()
         .unwrap();
     
-    fn genBody() -> Body {
+    fn genBody(mass: f64) -> Body {
         let mut rng = rand::thread_rng();
         fn rpos(rng: &mut rand::ThreadRng) -> (f64, f64) {
             ((rng.gen::<f64>() - 0.5) * 100.0,
@@ -218,14 +218,14 @@ fn main() {
         }
 
         fn rvel(rng: &mut rand::ThreadRng) -> (f64, f64) {
-            ((rng.gen::<f64>() - 0.5) * 0.01,
-             (rng.gen::<f64>() - 0.5) * 0.01)
+            ((rng.gen::<f64>() - 0.5) * 0.001,
+             (rng.gen::<f64>() - 0.5) * 0.001)
         }
 
         let mut b = Body {
             position: rpos(&mut rng),
             velocity: rvel(&mut rng),
-            mass: 1.0
+            mass: mass
         };
 
         b
@@ -233,10 +233,12 @@ fn main() {
     
     let mut v = Vec::new();
 
-    for i in 0..80 {
-        v.push(Box::new(genBody()));
+    for i in 0..1 {
+        v.push(Box::new(genBody(1.0)));
     }
     
+    v.push(Box::new(genBody(10000.0)));
+
     // Create a new game and run it.
     let mut app = App {
         gl: GlGraphics::new(opengl),
