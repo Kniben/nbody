@@ -210,7 +210,7 @@ fn main() {
         .build()
         .unwrap();
     
-    fn genBody(mass: f64) -> Body {
+    fn gen_body(mass: f64) -> Body {
         let mut rng = rand::thread_rng();
         fn rpos(rng: &mut rand::ThreadRng) -> (f64, f64) {
             ((rng.gen::<f64>() - 0.5) * 100.0,
@@ -233,11 +233,11 @@ fn main() {
     
     let mut v = Vec::new();
 
-    for i in 0..1 {
+    for i in 0..100 {
         v.push(Box::new(genBody(1.0)));
     }
     
-    v.push(Box::new(genBody(10000.0)));
+    v.push(Box::new(gen_body(10000.0)));
 
     // Create a new game and run it.
     let mut app = App {
