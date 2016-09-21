@@ -234,7 +234,7 @@ fn main() {
     let mut v = Vec::new();
 
     for i in 0..100 {
-        v.push(Box::new(genBody(1.0)));
+        v.push(Box::new(gen_body(1.0)));
     }
     
     v.push(Box::new(gen_body(10000.0)));
